@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: aqua;
+            color: white;
+            font: normal 18pt arial;
+        }
+
+        #div{
+            background-color: red;
+            font: normal 16pt arial;
+            width: 300px;
+            height: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="div">
+        ESTÁ É UMA DIV
+    </div>
+    <script>
+    
+    var div = window.document.getElementById('div')
+    div.addEventListener('click', clicar)
+    div.addEventListener('mouseenter', entrar)
+    div.addEventListener('mouseout', sair)
+    
+    function clicar(){
+           div.innerText = "clicou"
+       }
+    function entrar(){
+            div.innerText = "entrou"
+       }
+    function sair(){
+            div.innerText = "saiu"
+       }
+    </script>
+</body>
+</html>
