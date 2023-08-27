@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca CEP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+    <script>
+
+        function busca_cep(){
+
+            const input_cep = document.getElementById('cep')
+            const input_cidade = document.getElementById('cidade')
+            const input_estado = document.getElementById('estado')
+            const input_rua = document.getElementById('rua')
+            const input_bairro = document.getElementById('bairro')
+            const cep = input_cep.value
+            
+            fetch(`https://cep.awesomeapi.com.br/json/${cep}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    if(data.city){
+                        
+                        input_cidade.value = data.city
+                        input_cidade.setAttribute('readonly', 'readonly')
+                        input_cidade.style.backgroundColor = "ghostwhite"
+                    }
+
+                    if(data.state){
+                        
+                        input_estado.value = data.state
+                        input_estado.setAttribute('readonly', 'readonly')
+                        input_estado.style.backgroundColor = "ghostwhite"
+                    }
+
+                    if(data.address){
+                        
+                        input_rua.value = data.address
+                        input_rua.setAttribute('readonly', 'readonly')
+                        input_rua.style.backgroundColor = "ghostwhite"
+                    }
+
+                    if(data.district){
+                        
+                        input_bairro.value = data.district
+                        input_bairro.setAttribute('readonly', 'readonly')
+                        input_bairro.style.backgroundColor = "ghostwhite"
+                    }
+
+                    if(data.code == 'invalid' || data.code == 'not_found'){
+
+                        alert('CEP Inválido!')
+                        input_cep.value = ''
+                        input_cidade.value = ''
+                        input_estado.value = ''
+                        input_rua.value = ''
+                        input_bairro.value = ''
+
+                    }
+                })
+        }
+
+    </script>
+    <div class="container d-flex justify-content-center align-items-center h-100">
+        <div class="form">
+        <h1>BUSCA CEP</h1>
+
+        <form>
+            <label for="cep">CEP:</label>
+            <input id="cep" type="text" name="cep" inputmode="numeric" pattern="[0-9]*" maxlength="8" onchange="busca_cep()" required> <br>
+
+            <label for="cidade">CIDADE:</label>
+            <input id="cidade" type="text" name="cidade"> <br>
+
+            <label for="estado">ESTADO:</label>
+            <input id="estado" type="text" name="estado"> <br>
+
+            <label for="rua">RUA:</label>
+            <input id="rua" type="text" name="rua"> <br>
+
+            <label for="bairro">BAIRRO:</label>
+            <input id="bairro" type="text" name="bairro"> <br>
+
+            <!-- <button onclick="busca_cep(event)">BUSCAR</button> -->
+        </form>
+
+    </div>
+
+    </div>
+
+    <style>
+
+        body, html {
+            height: 100%;
+        }
+
+        .container {
+            height: 100%;
+            display: flex;
+        }
+
+        .form {
+            width: 300px;
+            margin: auto;
+            border: 1px solid black;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .form {
+                width: 100%;
+            }
+        }
+
+    </style>
+    
+</body>
+</html>
