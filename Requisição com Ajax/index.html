@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <title>Requisição com ajax</title>
+</head>
+<body>
+
+  <form>
+    <label for="login">LOGIN: </label> 
+    <input id="login" type="text" required>
+
+    <label for="password">SENHA: </label> 
+    <input id="password" type="text" required>
+
+    <button id="botao">ENVIAR</button>
+  </form>
+
+  <div>
+    <p>SEU NOME COMPLETO É: <span id="nome_completo"></span></p>
+    <p>SUA SENHA É: <span id="senha"></span></p>
+    <p>SUA DATA DE NASCIMENTO É: <span id="data_nascimento"></span></p>
+  </div>
+
+  <script>
+
+function geby(nome_elemento){
+
+const elemento = document.getElementById(nome_elemento)
+return elemento
+
+}
+
+function gebyv(nome_elemento){
+
+const elemento = document.getElementById(nome_elemento).value
+return elemento
+
+}
+
+const botao = geby('botao')
+const nome_completo = geby('nome_completo')
+const senha = geby('senha')
+const data_nascimento = geby('data_nascimento')
+
+botao.addEventListener('click',function(ev){
+
+  ev.preventDefault()
+  let dados = {
+
+    login: gebyv('login'),
+    password: gebyv('password')
+
+  }
+  //alert(dados)
+
+    $.ajax({
+        url: 'http://localhost/dados.php',
+        method: 'POST',
+        data: dados,
+
+    }).done(function(resposta){
+
+      //alert(resposta)
+
+      dados = JSON.parse(resposta);
+
+      nome_completo.innerText= dados.NOME
+      senha.innerText = dados.SENHA
+      data_nascimento.innerText = dados.DATA_NASCIMENTO
+
+    })
+  })
+
+
+  </script>
+
+</body>
+</html>
